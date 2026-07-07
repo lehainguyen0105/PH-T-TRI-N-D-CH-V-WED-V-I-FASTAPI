@@ -1,0 +1,8 @@
+============================================================
+BẢNG CHỈ RA LỖI VÀ CÁCH KHẮC PHỤC - API LẤY THÔNG TIN ĐƠN HÀNG
+============================================================
+
+STT 1:
+- Phương thức truy vấn hiện tại: Dùng hàm .one()
+- Tình huống gây lỗi (Edge Case): Khi truyền vào order_id không tồn tại (ví dụ: 999), hàm .one() không tìm thấy gì sẽ quăng ra lỗi hệ thống nặng, làm API crash và lộ lỗi 500 kèm Stack Trace ra ngoài.
+- Phương thức thay thế an toàn hơn: Thay bằng hàm .first(). Nếu không tìm thấy, .first() chỉ trả về giá trị None (không làm sập code). Sau đó dùng câu lệnh "if not" để check None rồi chủ động trả về lỗi 404 Not Found bằng HTTPException của FastAPI.
